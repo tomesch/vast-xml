@@ -58,7 +58,7 @@ var xml = function(options) {
             icon.element(r.type, r.uri, (r.creativeType) ? { creativeType : r.creativeType } : {});
           });
         });
-        if (c.Duration) creativeType.element('Duration', c.Duration);
+        if (c.Duration) creativeType.element('Duration').cdata(c.Duration);
         var trackingEvents = creativeType.element('TrackingEvents');
         c.trackingEvents.forEach(function(trackingEvent){
           if (track) {
