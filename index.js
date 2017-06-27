@@ -64,7 +64,7 @@ var xml = function(options) {
           if (track) {
             var attributes = { event : trackingEvent.event };
             if (trackingEvent.offset) attributes.offset = trackingEvent.offset;
-            trackingEvents.element('Tracking', trackingEvent.url, attributes);
+            trackingEvents.element('Tracking', attributes).cdata(trackingEvent.url);
           } 
         });
         if (c.AdParameters) creativeType.element('AdParameters').cdata(c.AdParameters);
