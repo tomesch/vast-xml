@@ -70,7 +70,7 @@ var xml = function(options) {
         if (c.AdParameters) creativeType.element('AdParameters').cdata(c.AdParameters);
         var videoClicks = creativeType.element('VideoClicks');
         c.videoClicks.forEach(function(videoClick){
-          videoClicks.element(videoClick.type, videoClick.url, { id : videoClick.id });
+          videoClicks.element(videoClick.type, { id : videoClick.id }).cdata(videoClick.url);
         });
         if (c.mediaFiles && c.mediaFiles.length > 0) {
           var mediaFiles = creativeType.element('MediaFiles');
