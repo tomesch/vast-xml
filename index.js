@@ -52,10 +52,14 @@ var xml = function(options) {
         if (c.skipoffset) creativeOpts.skipoffset = c.skipoffset;
         creativeType = creative.element(c.type, creativeOpts);
         if (c.icons.length > 0) var icons = creativeType.element('Icons');
-        c.icons.forEach(function(i){
+        c.icons.forEach(function (i) {
           var icon = icons.element('Icon', i.attributes);
           i.resources.forEach(function(r){
             icon.element(r.type, (r.creativeType) ? { creativeType: r.creativeType } : {}).cdata(r.uri);
+          });
+          i.clicks.forEach(function (c) {
+            var iconClick = icon.element('IconClicks');
+            iconClick.element('IconClickThrough').cdata(c.uri);
           });
         });
         if (c.Duration) creativeType.element('Duration').cdata(c.Duration);
