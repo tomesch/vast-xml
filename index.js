@@ -13,7 +13,7 @@ var xml = function(options) {
     if (ad.sequence) adOptions.sequence = ad.sequence;
     var Ad = response.element('Ad', adOptions);
     var creatives;
-    if (ad.structure.toLowerCase() === 'wrapper') { 
+    if (ad.structure.toLowerCase() === 'wrapper') {
       var wrapper = Ad.element('Wrapper');
       wrapper.element('AdSystem', ad.AdSystem.name, { version : ad.AdSystem.version });
       wrapper.element('VASTAdTagURI').cdata(ad.VASTAdTagURI);
@@ -55,7 +55,7 @@ var xml = function(options) {
         c.icons.forEach(function(i){
           var icon = icons.element('Icon', i.attributes);
           i.resources.forEach(function(r){
-            icon.element(r.type, r.uri, (r.creativeType) ? { creativeType : r.creativeType } : {});
+            icon.element(r.type, (r.creativeType) ? { creativeType: r.creativeType } : {}).cdata(r.uri);
           });
         });
         if (c.Duration) creativeType.element('Duration').cdata(c.Duration);
@@ -65,7 +65,7 @@ var xml = function(options) {
             var attributes = { event : trackingEvent.event };
             if (trackingEvent.offset) attributes.offset = trackingEvent.offset;
             trackingEvents.element('Tracking', attributes).cdata(trackingEvent.url);
-          } 
+          }
         });
         if (c.AdParameters) creativeType.element('AdParameters').cdata(c.AdParameters);
         var videoClicks = creativeType.element('VideoClicks');
@@ -83,7 +83,7 @@ var xml = function(options) {
       nonLinearCreatives.forEach(function(c){
         var nonLinearAds = creatives.element('Creative').element('NonLinearAds');
         var creativeType = nonLinearAds.element(c.type, c.attributes);
-        c.resources.forEach(function(resource) { 
+        c.resources.forEach(function(resource) {
           var attributes = {}
           if (resource.creativeType) attributes.creativeType = resource.creativeType;
           creativeType.element(resource.type, resource.uri, attributes);
@@ -96,7 +96,7 @@ var xml = function(options) {
       if (companionAdCreatives.length > 0) var companionAds = creatives.element('Creative').element('CompanionAds');
       companionAdCreatives.forEach(function(c) {
         companion = companionAds.element('Companion', c.attributes);
-        c.resources.forEach(function(r) { 
+        c.resources.forEach(function(r) {
           companion.element(r.type, r.uri, (r.creativeType) ? { creativeType : r.creativeType } : {});
           if (r.adParameters) companion.element('AdParameters', r.adParameters.data, { xmlEncoded : r.adParameters.xmlEncoded });
         });
@@ -119,7 +119,7 @@ function VAST(settings) {
   this.attachAd = function(settings) {
     var ad = new Ad(settings);
     this.ads.push(ad);
-    return ad; 
+    return ad;
   };
   this.xml = xml;
 }
