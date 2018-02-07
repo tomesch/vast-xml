@@ -61,6 +61,9 @@ var xml = function(options) {
             var iconClick = icon.element('IconClicks');
             iconClick.element('IconClickThrough').cdata(c.uri);
           });
+          i.viewTracking.forEach(function (vt) {
+            icon.element(vt.type).cdata(vt.uri);
+          });
         });
         if (c.Duration) creativeType.element('Duration').cdata(c.Duration);
         var trackingEvents = creativeType.element('TrackingEvents');
