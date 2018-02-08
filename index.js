@@ -13,8 +13,9 @@ var xml = function(options) {
     if (ad.sequence) adOptions.sequence = ad.sequence;
     var Ad = response.element('Ad', adOptions);
     var creatives;
+    var vastType;
     if (ad.structure.toLowerCase() === 'wrapper') {
-      var wrapper = Ad.element('Wrapper');
+      var wrapper = vastType = Ad.element('Wrapper');
       wrapper.element('AdSystem', ad.AdSystem.name, { version : ad.AdSystem.version });
       wrapper.element('VASTAdTagURI').cdata(ad.VASTAdTagURI);
       if (ad.Error)
@@ -24,7 +25,7 @@ var xml = function(options) {
       });
       creatives = wrapper.element('Creatives');
     } else {
-      var inline = Ad.element('InLine');
+      var inline = vastType = Ad.element('InLine');
       inline.element('AdSystem', ad.AdSystem.name, { version : ad.AdSystem.version });
       inline.element('AdTitle').cdata(ad.AdTitle);
       inline.element('Description').cdata(ad.Description || '');
@@ -109,7 +110,7 @@ var xml = function(options) {
         });
       });
     if (ad.Extensions) {
-      var extensions = inline.element('Extensions');
+      var extensions = vastType.element('Extensions');
       [].concat(ad.Extensions).forEach(function(extension) {
         extensions.element('Extension').raw(extension);
       });
