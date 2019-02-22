@@ -105,7 +105,7 @@ var xml = function(options) {
       companionAdCreatives.forEach(function(c) {
         companion = companionAds.element('Companion', c.attributes);
         c.resources.forEach(function(r) {
-          companion.element(r.type, r.uri, (r.creativeType) ? { creativeType : r.creativeType } : {});
+          companion.element(r.type, (r.creativeType) ? { creativeType : r.creativeType } : {}).cdata(r.uri);
           if (r.adParameters) companion.element('AdParameters', r.adParameters.data, { xmlEncoded : r.adParameters.xmlEncoded });
         });
       });
