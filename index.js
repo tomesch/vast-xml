@@ -117,6 +117,9 @@ var xml = function(options) {
             }
           });
         }
+        if(c.clickThroughs && c.clickThroughs.length === 1) {
+          companion.element('CompanionClickThrough').cdata(c.clickThroughs[0])
+        }
       });
     if (ad.Extensions) {
       var extensions = vastType.element('Extensions');
