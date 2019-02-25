@@ -108,6 +108,15 @@ var xml = function(options) {
           companion.element(r.type, (r.creativeType) ? { creativeType : r.creativeType } : {}).cdata(r.uri);
           if (r.adParameters) companion.element('AdParameters', r.adParameters.data, { xmlEncoded : r.adParameters.xmlEncoded });
         });
+        if (c.trackingEvents && c.trackingEvents.length > 0) {
+          var trackingEvents = companion.element('TrackingEvents');
+          c.trackingEvents.forEach(function(trackingEvent){
+            if (track) {
+              var attributes = { event : trackingEvent.event };
+              trackingEvents.element('Tracking', attributes).cdata(trackingEvent.url);
+            }
+          });
+        }
       });
     if (ad.Extensions) {
       var extensions = vastType.element('Extensions');
